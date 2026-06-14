@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: dim_song
+    description: "Conformed song dimension, one row per internal song."
+    columns:
+      - name: song_id
+        tests: [not_null, unique]
+
+  - name: fct_spotify_tracks
+    description: "Spotify track facts joined to dim_song."
+    columns:
+      - name: spotify_track_id
+        tests: [not_null, unique]
+      - name: song_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_song')
+              field: song_id
+
+  - name: fct_youtube_videos
+    description: "YouTube video facts joined to dim_song."
+    columns:
+      - name: song_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_song')
+              field: song_id
+
+  - name: mart_song_spotify_isrc_counts
+    description: "Business answer 1: distinct ISRCs per song."
+    columns:
+      - name: song_id
+        tests: [not_null, unique]
+      - name: distinct_isrc_count
+        tests: [not_null]
+
+  - name: mart_song_youtube_video_counts
+    description: "Business answer 2: YouTube video count per song."
+    columns:
+      - name: song_id
+        tests: [not_null, unique]
+      - name: youtube_video_count
+        tests: [not_null]
+
+  - name: mart_song_overview
+    description: "Both business answers combined, one row per song."
+    columns:
+      - name: song_id
+        tests: [not_null, unique]

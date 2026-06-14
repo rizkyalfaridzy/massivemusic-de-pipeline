@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    description: "Landing zone populated by the Python ingestion jobs."
+    tables:
+      - name: catalog
+        description: "Internal song catalog exported from the Google Sheet."
+      - name: spotify_tracks
+        description: "Raw Spotify search hits (track-level), one row per matched track."
+      - name: youtube_videos
+        description: "Raw YouTube search hits (video-level), one row per matched video."

@@ -1,0 +1,17 @@
+# secrets
+.env
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# dbt
+dbt/massivemusic/target/
+dbt/massivemusic/dbt_packages/
+dbt/massivemusic/logs/
+logs/
+
+# os
+.DS_Store

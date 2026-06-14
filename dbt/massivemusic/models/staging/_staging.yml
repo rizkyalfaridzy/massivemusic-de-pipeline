@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: stg_catalog
+    description: "Cleaned internal catalog, one row per song_id."
+    columns:
+      - name: song_id
+        tests: [not_null, unique]
+      - name: song_title
+        tests: [not_null]
+      # artist_name is optional in the source catalog (some songs have none),
+      # so we deliberately do not enforce not_null here.
+
+  - name: stg_spotify_tracks
+    description: "Cleaned Spotify tracks, one row per spotify_track_id."
+    columns:
+      - name: spotify_track_id
+        tests: [not_null, unique]
+      - name: song_id
+        tests: [not_null]
+      - name: is_valid_isrc
+        tests:
+          - accepted_values:
+              values: [true, false]
+
+  - name: stg_youtube_videos
+    description: "Cleaned YouTube videos, unique per (song_id, video_id)."
+    columns:
+      - name: video_id
+        tests: [not_null]
+      - name: song_id
+        tests: [not_null]
