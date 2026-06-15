@@ -42,7 +42,7 @@ class SpotifyConfig:
     client_secret: str | None = _get("SPOTIFY_CLIENT_SECRET")
     # Cap searches to control rate-limits during the demo.
     market: str = _get("SPOTIFY_MARKET", "US")
-    search_limit: int = int(_get("SPOTIFY_SEARCH_LIMIT", "50"))
+    search_limit: int = int(_get("SPOTIFY_SEARCH_LIMIT", "10"))
 
 
 @dataclass(frozen=True)
